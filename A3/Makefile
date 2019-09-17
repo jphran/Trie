@@ -28,4 +28,4 @@ clean:
 	rm TrieTest *.o
 
 test:
-	./TrieTest "sample text: ab abusu ad usum non valet consequentia decessit sine prole superstite haha";
+	./TrieTest "testAdd.txt" "testIsAWord.txt"

@@ -15,9 +15,9 @@ using namespace std;
 int main(int argc, char ** argv)
 {
   //check if valid number of inputs
-  if(argc != 2)
+  if(argc != 3)
   {
-    if(argc < 2)
+    if(argc < 3)
     {
       cout << "Too few arguments given in command line. Please revise.\n";
     }
@@ -34,7 +34,7 @@ int main(int argc, char ** argv)
   fstream wordsToCheckFile;
 
   //add words to trie
-  wordsToAddFile.open(argv[0], ios::in);
+  wordsToAddFile.open(argv[1]);
 
   if(!wordsToAddFile.is_open()) //check if wordsToAddFile is legit
   {
@@ -52,7 +52,7 @@ int main(int argc, char ** argv)
   }
 
   //check words in Trie
-  wordsToCheckFile.open(argv[1], ios::in);
+  wordsToCheckFile.open(argv[2]);
 
   if(!wordsToCheckFile.is_open()) //check if wordsToAddFile is legit
   {

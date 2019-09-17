@@ -15,6 +15,11 @@ using namespace std;
 //TODO: make wrapper class for root node init
 #define ALPHABET_SIZE 26
 #define ASCII_START_VAL 97
+// #define DEBUGADD
+#define DEBUG
+#ifdef DEBUG
+  #include <iostream>
+#endif
 
 
 Trie::Trie()
@@ -59,7 +64,26 @@ lower-case characters from a-z.
 
 void Trie::addAWord(string word)
 {
-  //TODO:
+
+  char c = word[0];
+#ifdef DEBUGADD
+  cout << "word: " << word << endl;
+  cout << "char: " << c << endl;
+#endif
+  int idx = c - ASCII_START_VAL;
+
+  if(word.length() >= 1)
+  {
+    if(!alph_[idx])
+    {
+      alph_[idx] = new Trie();
+    }
+    alph_[idx]->addAWord(word.substr(1, word.length()));
+  }
+  else
+  {
+    isEndOfWord = true;
+  }
 }
 
 // void Trie::addAWord(string word)
@@ -91,6 +115,7 @@ false.  A Trie should report that an empty string is not in the Trie.
 bool Trie::isAWord(string word)
 {
   //TODO:
+  return false;
 }
 
 /*
@@ -102,6 +127,8 @@ is acceptable. An empty prefix should return all words in the Trie.
 vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 {
   //TODO:
+  vector<string> x;
+  return x;
 }
 
 
