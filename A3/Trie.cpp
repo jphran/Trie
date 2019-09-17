@@ -64,16 +64,14 @@ lower-case characters from a-z.
 
 void Trie::addAWord(string word)
 {
-
-  char c = word[0];
-#ifdef DEBUGADD
-  cout << "word: " << word << endl;
-  cout << "char: " << c << endl;
-#endif
-  int idx = c - ASCII_START_VAL;
-
-  if(word.length() >= 1)
+  if(!word.empty())
   {
+    char c = word[0];
+#ifdef DEBUGADD
+cout << "word: " << word << endl;
+cout << "char: " << c << endl;
+#endif
+    int idx = c - ASCII_START_VAL;
     if(!alph_[idx])
     {
       alph_[idx] = new Trie();
@@ -115,8 +113,24 @@ false.  A Trie should report that an empty string is not in the Trie.
 bool Trie::isAWord(string word)
 {
   //TODO:
-  return false;
+  bool flag;
+  if(word.empty())
+  {
+    flag = isEndOfWord;
+  }
+  else
+  {
+    char c = word[0];
+    int idx = c - ASCII_START_VAL;
+    if(alph_[idx])
+    {
+      flag = alph_[idx]->isAWord(word.substr(1, word.length()));
+    }
+    else {flag = false;}
+  }
+  return flag;
 }
+
 
 /*
 A method allWordsStartingWithPrefix that accepts a std::string and returns
