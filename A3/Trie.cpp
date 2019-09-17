@@ -60,12 +60,16 @@ void Trie::addAWord(string word)
 {
   //TODO:
   string::iterator iter = word.begin();
-  recurseiveAddAWord(iter);
+  recursiveAddAWord(iter);
 }
 
 void Trie::recursiveAddAWord(string::iterator& iter)
 {
-    alph_[*iter - ASCII_START_VAL] = new Trie();
+    if(!alph_[*iter - ASCII_START_VAL])
+    {
+      alph_[*iter - ASCII_START_VAL] = new Trie();
+    }
+
 }
 
 /*
