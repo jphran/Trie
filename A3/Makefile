@@ -10,11 +10,12 @@
 
 CC = g++
 CFLAGS = -Wall -fsanitize=undefined -fsanitize=address -g -std=c++11
+TRIELIB = .
 
 TrieTest: Trie.o TrieTest.o
-	$(CC) $(CFLAGS) -o TrieTest Trie.o TrieTest.o
+	$(CC) $(CFLAGS) -o TrieTest Trie.o TrieTest.o -I$(TRIELIB) -L$(TRIELIB)
 
-Trie.o: Trie.cpp #Trie.h
+Trie.o: Trie.cpp Trie.h
 	$(CC) $(CFLAGS) -c Trie.cpp
 
 TrieTest.o: TrieTest.cpp

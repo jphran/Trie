@@ -56,21 +56,31 @@ passed into the method should be added to the Trie. Duplicate adds should
 not change the Trie. You may assume that the word is only made up of
 lower-case characters from a-z.
 */
+
 void Trie::addAWord(string word)
 {
   //TODO:
-  string::iterator iter = word.begin();
-  recursiveAddAWord(iter);
 }
 
-void Trie::recursiveAddAWord(string::iterator& iter)
-{
-    if(!alph_[*iter - ASCII_START_VAL])
-    {
-      alph_[*iter - ASCII_START_VAL] = new Trie();
-    }
-
-}
+// void Trie::addAWord(string word)
+// {
+//   //TODO:
+//   string::iterator iter = word.begin();
+//   recursiveAddAWord(iter, alph_[((char)*iter++) - ASCII_START_VAL]);
+// }
+//
+// void Trie::recursiveAddAWord(string::iterator& iter, Trie* trie)
+// {
+//     if(!trie.alph_[((char)*iter) - ASCII_START_VAL])
+//     {
+//       trie.alph_[((char)*iter) - ASCII_START_VAL] = new Trie();
+//     }
+//     else
+//     {
+//       recursiveAddAWord(++iter);
+//     }
+//
+// }
 
 /*
 A method isAWord that accepts a std::string and returns bool. The argument

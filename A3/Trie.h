@@ -21,7 +21,7 @@ class Trie
   bool isEndOfWord;
 
 private:
-  void recursiveAddAWord(std::string::iterator& iter);
+  void recursiveAddAWord(std::string::iterator& iter, Trie* trie);
 
 public:
   Trie();
