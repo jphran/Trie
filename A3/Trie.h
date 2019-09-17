@@ -21,7 +21,7 @@ class Trie
   bool isEndOfWord;
 
 private:
-  void recursiveAddAWord(std::string::iterator& iter, Trie* trie);
+  void recursiveAllWordsStartingWithPrefix(string prefix, vector<string>& words);
 
 public:
   Trie();

@@ -84,26 +84,6 @@ cout << "char: " << c << endl;
   }
 }
 
-// void Trie::addAWord(string word)
-// {
-//   //TODO:
-//   string::iterator iter = word.begin();
-//   recursiveAddAWord(iter, alph_[((char)*iter++) - ASCII_START_VAL]);
-// }
-//
-// void Trie::recursiveAddAWord(string::iterator& iter, Trie* trie)
-// {
-//     if(!trie.alph_[((char)*iter) - ASCII_START_VAL])
-//     {
-//       trie.alph_[((char)*iter) - ASCII_START_VAL] = new Trie();
-//     }
-//     else
-//     {
-//       recursiveAddAWord(++iter);
-//     }
-//
-// }
-
 /*
 A method isAWord that accepts a std::string and returns bool. The argument
 is a string assumed to be made up of characters 'a'-'z'. If the word is
@@ -140,23 +120,40 @@ is acceptable. An empty prefix should return all words in the Trie.
 */
 vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 {
-  //TODO:
-  vector<string> x;
-  return x;
+  vector<string> vectorOfWords;
+  if(prefix.empty())
+  {
+    //TODO:
+  }
+  else
+  {
+    Trie* nodeAtEndOfPrefix;
+    if(returnWord(prefix, nodeAtEndOfPrefix))
+    {
+      recursiveAllWordsStartingWithPrefix(prefix, word, vectorOfWords);
+    }
+  }
+
+  return vectorOfWords;
 }
 
+//helper method
+Trie* returnWord(string word)
+{
 
+}
 
-// //Wrapper class for Trie, inits first node
-// class Trie
-// {
-// private:
-//   Trie* root_;
-// public:
-//   Trie()
-//   {
-//     root_ = new &Trie;
-//   }
-//
-//   //wrapper methods
-// }
+void recursiveAllWordsStartingWithPrefix(string prefix, string word, vector<string>& vectorOfWords)
+{
+  for(int i = 0; i < ALPHABET_SIZE; i++)
+  {
+    if(isEndOfWord)
+    {
+      vectorOfWords.insert(word);
+    }
+    else(alph_[i])
+    {
+      recursiveAllWordsStartingWithPrefix(prefix.substr(1,prefix.length()), word.append((char)(i+ASCII_START_VAL)), vectorOfWords);
+    }
+  }
+}
