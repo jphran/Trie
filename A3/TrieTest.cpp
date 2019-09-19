@@ -78,7 +78,7 @@ int main(int argc, char ** argv)
   }
 
   //check prefix fn
-  string prefix = "a";
+  string prefix = "ca";
   vector<string> returnedWords = dictionary.allWordsStartingWithPrefix(prefix);
 
   cout << "list: \n";
@@ -91,5 +91,19 @@ int main(int argc, char ** argv)
   cout << "num: " << i << endl;
 
   //TODO: excercise rule-of-three
+  // Trie orig;
+  // orig.addAWord("a");
+  // returnedWords = orig.allWordsStartingWithPrefix("");
+  // cout << "orig: " << returnedWords[0] << endl;
+  //
+  // Trie copy = orig;
+  // returnedWords = copy.allWordsStartingWithPrefix("");
+  // cout << "copy: " << returnedWords[0] << endl;
+  //
+  // Trie* onHeap = new Trie;
+  // onHeap->addAWord("a");
+  // onHeap->addAWord("b");
+  // cout << "onheap addy: " << onHeap << endl;
+  // delete onHeap;
 
 }
