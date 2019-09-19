@@ -129,16 +129,39 @@ is acceptable. An empty prefix should return all words in the Trie.
 vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 {
   vector<string> vectorOfWords;
-  Trie* nodeAtEndOfPrefix = this;
+  Trie* currentNode = this;
 
-  if(traversePrefix(prefix, nodeAtEndOfPrefix)) //checks if prefix is word
+  for(string::iterator iter = prefix.begin(); iter != prefix.end(); ++iter)
+  {
+    int idx = *iter - ASCII_START_VAL;
+    if(alph_[idx])
+    {
+      currentNode = alph_[idx];
+    }
+    else{break;}
+  }
+  if(currentNode->isEndOfWord)
   {
     vectorOfWords.push_back(prefix);
   }
-  nodeAtEndOfPrefix->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
+
+  currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
 
   return vectorOfWords;
 }
+// vector<string> Trie::allWordsStartingWithPrefix(string prefix)
+// {
+//   vector<string> vectorOfWords;
+//   Trie* nodeAtEndOfPrefix = this;
+//
+//   if(traversePrefix(prefix, nodeAtEndOfPrefix)) //checks if prefix is word
+//   {
+//     vectorOfWords.push_back(prefix);
+//   }
+//   nodeAtEndOfPrefix->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
+//
+//   return vectorOfWords;
+// }
 
 //returns true if prefix is a word in the trie. also returns a pointer to
 //the node at the end of the prefix
@@ -147,7 +170,6 @@ bool Trie::traversePrefix(string prefix, Trie* nodeAtEndOfPrefix)
   bool flag;
   if(prefix.empty())
   {
-    nodeAtEndOfPrefix = this;
     flag = nodeAtEndOfPrefix->isEndOfWord;
   }
   else
@@ -156,6 +178,7 @@ bool Trie::traversePrefix(string prefix, Trie* nodeAtEndOfPrefix)
     int idx = c - ASCII_START_VAL;
     if(alph_[idx])
     {
+      nodeAtEndOfPrefix = this->alph_[idx];
       flag = alph_[idx]->traversePrefix(prefix.substr(1, prefix.length()), nodeAtEndOfPrefix);
     }
     else {flag = false;}
@@ -167,15 +190,15 @@ void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vect
 {
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
-    string postfix = "";
+    // string postfix = "";
     if(alph_[i])
     {
-      postfix.push_back((i + ASCII_START_VAL));
+      word.push_back((i + ASCII_START_VAL));
       if(alph_[i]->isEndOfWord)
       {
-        vectorOfWords.push_back(word+postfix);
+        vectorOfWords.push_back(word);
       }
-      alph_[i]->recursiveAllWordsStartingWithPrefix(postfix, vectorOfWords);
+      alph_[i]->recursiveAllWordsStartingWithPrefix(word, vectorOfWords);
     }
   }
 }
