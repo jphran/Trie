@@ -1,7 +1,5 @@
 a
-ab
-abc
-
-c
-cb
-cba
+at
+app
+age
+argument

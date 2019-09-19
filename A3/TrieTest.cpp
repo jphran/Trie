@@ -78,7 +78,7 @@ int main(int argc, char ** argv)
   }
 
   //check prefix fn
-  string prefix = "ab";
+  string prefix = "a";
   vector<string> returnedWords = dictionary.allWordsStartingWithPrefix(prefix);
 
   cout << "list: \n";
