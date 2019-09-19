@@ -66,7 +66,7 @@ int main(int argc, char ** argv)
     {
       if(dictionary.isAWord(word))
       {
-        cout << word << " is foudn.\n";
+        cout << word << " is found.\n";
       }
       else
       {
