@@ -1,13 +1,7 @@
-cat
-bat
-sat
-justin
-testing
-saturn
+a
+ab
+abc
 
-pre
-prefix
-pretend
-present
-presence
-p
+c
+cb
+cba

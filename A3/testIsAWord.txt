@@ -1,4 +1,5 @@
-cat
-saturn
+a
+abc
+cba
 just
 lake

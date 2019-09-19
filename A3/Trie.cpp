@@ -30,8 +30,12 @@ Trie::Trie()
   }
   isEndOfWord = false;
 }
+
+
 Trie::Trie(const Trie& toCopy)
 {
+  isEndOfWord = toCopy.isEndOfWord;
+
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
     alph_[i] = nullptr;
@@ -42,6 +46,7 @@ Trie::Trie(const Trie& toCopy)
   }
 }
 
+
 Trie::~Trie()
 {
   for(int i = 0; i < ALPHABET_SIZE; i++)
@@ -49,6 +54,7 @@ Trie::~Trie()
     delete alph_[i];
   }
 }
+
 
 Trie& Trie::operator=(Trie other)
 {
@@ -64,7 +70,6 @@ passed into the method should be added to the Trie. Duplicate adds should
 not change the Trie. You may assume that the word is only made up of
 lower-case characters from a-z.
 */
-
 void Trie::addAWord(string word)
 {
   if(!word.empty())
@@ -124,30 +129,53 @@ is acceptable. An empty prefix should return all words in the Trie.
 vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 {
   vector<string> vectorOfWords;
+  Trie* nodeAtEndOfPrefix = this;
 
-  if(isAWord(prefix))
+  if(traversePrefix(prefix, nodeAtEndOfPrefix)) //checks if prefix is word
   {
     vectorOfWords.push_back(prefix);
   }
-  string word = prefix;
-  recursiveAllWordsStartingWithPrefix(word, vectorOfWords);
+  nodeAtEndOfPrefix->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
 
   return vectorOfWords;
 }
 
+//returns true if prefix is a word in the trie. also returns a pointer to
+//the node at the end of the prefix
+bool Trie::traversePrefix(string prefix, Trie* nodeAtEndOfPrefix)
+{
+  bool flag;
+  if(prefix.empty())
+  {
+    nodeAtEndOfPrefix = this;
+    flag = nodeAtEndOfPrefix->isEndOfWord;
+  }
+  else
+  {
+    char c = prefix[0];
+    int idx = c - ASCII_START_VAL;
+    if(alph_[idx])
+    {
+      flag = alph_[idx]->traversePrefix(prefix.substr(1, prefix.length()), nodeAtEndOfPrefix);
+    }
+    else {flag = false;}
+  }
+  return flag;
+}
 //helper
 void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vectorOfWords)
 {
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
+    string postfix = "";
     if(alph_[i])
     {
-      word.push_back((i + ASCII_START_VAL));
+      postfix.push_back((i + ASCII_START_VAL));
       if(alph_[i]->isEndOfWord)
       {
-        vectorOfWords.push_back(word);
+        vectorOfWords.push_back(word+postfix);
       }
-      alph_[i]->recursiveAllWordsStartingWithPrefix(word, vectorOfWords);
+      alph_[i]->recursiveAllWordsStartingWithPrefix(postfix, vectorOfWords);
     }
   }
 }
@@ -173,7 +201,7 @@ void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vect
 //   return vectorOfWords;
 // }
 //
-// //helper method determins if prefix is word and returns node pointer
+// // //helper method determins if prefix is word and returns node pointer
 // bool Trie::returnWord(string word, Trie* nodeAtEndOfPrefix)
 // {
 //   //TODO:

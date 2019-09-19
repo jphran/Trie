@@ -77,6 +77,19 @@ int main(int argc, char ** argv)
     wordsToCheckFile.close();
   }
 
+  //check prefix fn
+  string prefix = "ab";
+  vector<string> returnedWords = dictionary.allWordsStartingWithPrefix(prefix);
+
+  cout << "list: \n";
+  int i = 0;
+  for(vector<string>::iterator iter = returnedWords.begin(); iter != returnedWords.end(); ++iter)
+  {
+    cout << *iter << endl;
+    i++;
+  }
+  cout << "num: " << i << endl;
+
   //TODO: excercise rule-of-three
 
 }
