@@ -128,19 +128,21 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
   vector<string> vectorOfWords;
   Trie* currentNode = this;
 
+  //travers prefix
   for(string::iterator iter = prefix.begin(); iter != prefix.end(); ++iter)
   {
-    int idx = *iter - ASCII_START_VAL;
-    if(currentNode->alph_[idx])
+    int idx = *iter - ASCII_START_VAL; //convert ascii to index number
+    if(currentNode->alph_[idx]) //if branch exists
     {
-      currentNode = currentNode->alph_[idx];
       if(currentNode->isEndOfWord)
       {
-        vectorOfWords.push_back(prefix);
+        vectorOfWords.push_back(prefix); //if prefix is a word, add it
       }
+      currentNode = currentNode->alph_[idx]; //set new pointer
     }
   }
 
+  //if the prefix does not exist in trie
   if(currentNode != this){
     currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
   }
@@ -150,75 +152,20 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 
 
 //helper to recursiely grab words from trie
+//takes in the prefix and the vector of strings to return
 void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vectorOfWords)
 {
-  for(int i = 0; i < ALPHABET_SIZE; i++)
+  for(int i = 0; i < ALPHABET_SIZE; i++) //go through every possible branch
   {
-    string postfix = "";
-    if(alph_[i])
+    string postfix = ""; //create postfix for each root in new trie
+    if(alph_[i]) //if branch exists
     {
-      // cout << "recursion: " << alph_[i] << endl;
-      postfix.push_back((i + ASCII_START_VAL));
+      postfix.push_back((i + ASCII_START_VAL)); //add branch name to word
       if(alph_[i]->isEndOfWord)
       {
-        vectorOfWords.push_back(word + postfix);
+        vectorOfWords.push_back(word + postfix); //if at end of branch, add word to vector
       }
-      alph_[i]->recursiveAllWordsStartingWithPrefix((word + postfix), vectorOfWords);
+      alph_[i]->recursiveAllWordsStartingWithPrefix((word + postfix), vectorOfWords); //call recursively
     }
   }
 }
-
-// vector<string> Trie::allWordsStartingWithPrefix(string prefix)
-// {
-//   vector<string> vectorOfWords;
-//   Trie* currentNode = this;
-//   // cout << currentNode << endl;
-//
-//   //check if prefix is empty, then return entire trie
-//   if(prefix.empty())
-//   {
-//     recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
-//   }
-//   else
-//   {
-//     for(string::iterator iter = prefix.begin(); iter != prefix.end(); ++iter)
-//     {
-//       int idx = *iter - ASCII_START_VAL;
-//       cout << *iter << endl;
-//       cout << alph_[idx] << endl;
-//       if(alph_[idx])
-//       {
-//         currentNode = currentNode->alph_[idx];
-//       }
-//
-//     }
-//
-//
-//     if(currentNode->isEndOfWord)
-//     {
-//       vectorOfWords.push_back(prefix);
-//     }
-//
-//     currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
-//   }
-//   return vectorOfWords;
-// }
-//
-//
-// //helper to recursiely grab words from trie
-// void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vectorOfWords)
-// {
-//   for(int i = 0; i < ALPHABET_SIZE; i++)
-//   {
-//     string postfix = "";
-//     if(alph_[i])
-//     {
-//       postfix.push_back((i + ASCII_START_VAL));
-//       if(alph_[i]->isEndOfWord)
-//       {
-//         vectorOfWords.push_back(word + postfix);
-//       }
-//       alph_[i]->recursiveAllWordsStartingWithPrefix((word + postfix), vectorOfWords);
-//     }
-//   }
-// }

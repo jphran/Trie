@@ -21,9 +21,6 @@ class Trie
   bool isEndOfWord;
 
 private:
-  bool traversePrefix(std::string prefix, Trie* nodeAtEndOfPrefix);
-  // bool returnWord(std::string word, Trie* nodeAtEndOfPrefix);
-  // void recursiveAllWordsStartingWithPrefix(std::string word, std::vector<std::string>& vectorOfWords, Trie* node);
   void recursiveAllWordsStartingWithPrefix(std::string word, std::vector<std::string>& vectorOfWords);
 public:
   Trie();
