@@ -1,3 +1,5 @@
 cat
 cast
 dog
+c
+caste
