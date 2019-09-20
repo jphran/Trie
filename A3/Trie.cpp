@@ -131,7 +131,7 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 {
   vector<string> vectorOfWords;
   Trie* currentNode = this;
-  cout << currentNode << endl;
+  // cout << currentNode << endl;
 
   //check if prefix is empty, then return entire trie
   if(prefix.empty())
@@ -152,12 +152,12 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
         // }
         // cout << "node: " << currentNode->isEndOfWord << endl;
         currentNode = currentNode->alph_[idx];
-        cout << currentNode << endl;
+        // cout << currentNode << endl;
       }
       else
       {
         currentNode = currentNode->alph_[idx];
-        cout << "else state\n";
+        // cout << "else state\n";
         break;
       } //TODO: what to spit out if invalid prefix
     }
@@ -177,14 +177,14 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 //helper to recursiely grab words from trie
 void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vectorOfWords)
 {
-  cout << "recursion: " << this << endl;
+  // cout << "recursion: " << this << endl;
 
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
     string postfix = "";
     if(alph_[i])
     {
-      cout << "recursion: " << alph_[i] << endl;
+      // cout << "recursion: " << alph_[i] << endl;
       postfix.push_back((i + ASCII_START_VAL));
       if(alph_[i]->isEndOfWord)
       {
