@@ -77,6 +77,8 @@ int main(int argc, char ** argv)
     wordsToCheckFile.close();
   }
 
+
+
   //check prefix fn
   string prefix = "ca";
   vector<string> returnedWords = dictionary.allWordsStartingWithPrefix(prefix);
@@ -88,7 +90,7 @@ int main(int argc, char ** argv)
     cout << *iter << endl;
     i++;
   }
-  cout << "num: " << i << endl;
+  // cout << "num: " << i << endl;
 
   //TODO: excercise rule-of-three
   // Trie orig;

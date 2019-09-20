@@ -29,3 +29,6 @@ clean:
 
 test:
 	./TrieTest "testAdd.txt" "testIsAWord.txt"
+
+debug:
+	gdb ./TrieTest "testAdd.txt" "testIsAWord.txt"
