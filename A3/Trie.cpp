@@ -143,29 +143,17 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
     for(string::iterator iter = prefix.begin(); iter != prefix.end(); ++iter)
     {
       int idx = *iter - ASCII_START_VAL;
-      if(alph_[idx])
+      if(!alph_[idx])
       {
-
-        // for(int i = 0; i < 26; i++)
-        // {
-        //   cout << currentNode->alph_[i] << endl;
-        // }
-        // cout << "node: " << currentNode->isEndOfWord << endl;
-        currentNode = currentNode->alph_[idx];
-        // cout << currentNode << endl;
+        return vectorOfWords;
       }
-      else
-      {
+      else{
+        if(currentNode->isEndOfWord && (*iter == *prefix.rbegin()))
+        {
+          vectorOfWords.push_back(prefix);
+        }
         currentNode = currentNode->alph_[idx];
-        // cout << "else state\n";
-        break;
-      } //TODO: what to spit out if invalid prefix
-    }
-
-
-    if(currentNode->isEndOfWord)
-    {
-      vectorOfWords.push_back(prefix);
+      }
     }
 
     currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
