@@ -76,10 +76,6 @@ void Trie::addAWord(string word)
   if(!word.empty())
   {
     char c = word[0];
-#ifdef DEBUGADD
-cout << "word: " << word << endl;
-cout << "char: " << c << endl;
-#endif
     int idx = c - ASCII_START_VAL;
     if(!alph_[idx])
     {
@@ -135,17 +131,19 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
   for(string::iterator iter = prefix.begin(); iter != prefix.end(); ++iter)
   {
     int idx = *iter - ASCII_START_VAL;
-    if(alph_[idx])
+    if(currentNode->alph_[idx])
     {
       currentNode = currentNode->alph_[idx];
-      if(currentNode->isEndOfWord && (*iter == prefix[prefix.length()]))
+      if(currentNode->isEndOfWord)
       {
         vectorOfWords.push_back(prefix);
       }
     }
   }
 
-  currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
+  if(currentNode != this){
+    currentNode->recursiveAllWordsStartingWithPrefix(prefix, vectorOfWords);
+  }
 
   return vectorOfWords;
 }
@@ -154,8 +152,6 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
 //helper to recursiely grab words from trie
 void Trie::recursiveAllWordsStartingWithPrefix(string word, vector<string>& vectorOfWords)
 {
-  cout << "recursion: " << word << endl;
-
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
     string postfix = "";
