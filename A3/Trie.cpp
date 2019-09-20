@@ -12,53 +12,48 @@ Modified:
 #include <vector>
 #include <string>
 using namespace std;
-//TODO: make wrapper class for root node init
+
 #define ALPHABET_SIZE 26
 #define ASCII_START_VAL 97
-// #define DEBUGADD
-#define DEBUG
-#ifdef DEBUG
-  #include <iostream>
-#endif
 
-
+//constructor
 Trie::Trie()
 {
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
-    alph_[i] = nullptr;
+    alph_[i] = nullptr; //init all to null
   }
   isEndOfWord = false;
 }
 
-
+//copy constructor
 Trie::Trie(const Trie& toCopy)
 {
-  isEndOfWord = toCopy.isEndOfWord;
+  isEndOfWord = toCopy.isEndOfWord; //set flag
 
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
-    alph_[i] = nullptr;
+    alph_[i] = nullptr; //init branch
     if(toCopy.alph_[i])
     {
-      alph_[i] = new Trie(*toCopy.alph_[i]);
+      alph_[i] = new Trie(*toCopy.alph_[i]); //if theres a branch to copy, copy it recursively
     }
   }
 }
 
-
+//destructor
 Trie::~Trie()
 {
   for(int i = 0; i < ALPHABET_SIZE; i++)
   {
-    delete alph_[i];
+    delete alph_[i]; //recurseively delete heap objects
   }
-
 }
 
-
+//assingment overload
 Trie& Trie::operator=(Trie other)
 {
+  //straight from the text book
   std::swap(alph_, other.alph_);
   std::swap(isEndOfWord, other.isEndOfWord);
 
@@ -73,15 +68,15 @@ lower-case characters from a-z.
 */
 void Trie::addAWord(string word)
 {
-  if(!word.empty())
+  if(!word.empty()) //if empty word, set root as word
   {
     char c = word[0];
-    int idx = c - ASCII_START_VAL;
+    int idx = c - ASCII_START_VAL; //convert char to int index
     if(!alph_[idx])
     {
-      alph_[idx] = new Trie();
+      alph_[idx] = new Trie(); //if branch doesnt exist, create a new node
     }
-    alph_[idx]->addAWord(word.substr(1, word.length()));
+    alph_[idx]->addAWord(word.substr(1, word.length())); //recurse with shortened word
   }
   else
   {
@@ -97,25 +92,23 @@ false.  A Trie should report that an empty string is not in the Trie.
 */
 bool Trie::isAWord(string word)
 {
-  //TODO:
   bool flag;
-  if(word.empty())
+  if(word.empty()) //if empty word
   {
     flag = isEndOfWord;
   }
   else
   {
     char c = word[0];
-    int idx = c - ASCII_START_VAL;
+    int idx = c - ASCII_START_VAL; //convert char to int index
     if(alph_[idx])
     {
-      flag = alph_[idx]->isAWord(word.substr(1, word.length()));
+      flag = alph_[idx]->isAWord(word.substr(1, word.length())); //if the branch exists, recurse with shortened word
     }
     else {flag = false;}
   }
   return flag;
 }
-
 
 /*
 A method allWordsStartingWithPrefix that accepts a std::string and returns
@@ -134,11 +127,12 @@ vector<string> Trie::allWordsStartingWithPrefix(string prefix)
     int idx = *iter - ASCII_START_VAL; //convert ascii to index number
     if(currentNode->alph_[idx]) //if branch exists
     {
+      currentNode = currentNode->alph_[idx]; //set new pointer
+
       if(currentNode->isEndOfWord)
       {
         vectorOfWords.push_back(prefix); //if prefix is a word, add it
       }
-      currentNode = currentNode->alph_[idx]; //set new pointer
     }
   }
 
