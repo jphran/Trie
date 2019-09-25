@@ -1,34 +1,17 @@
-# Auth: Justin Francis
-# Class: CS3505
-# Assign: A3 Trie
-# Created: 9/15/19
-# Version: 0.1
-# Modified:
-#
-#
-# Description: A makefile because command line is hard
-
 CC = g++
-CFLAGS = -Wall -fsanitize=undefined -fsanitize=address -g -std=c++11
-TRIELIB = .
+CFLAGS = -std=c++11
+GOOGLETEST ?= ../../googletest/googletest
 
-TrieTest: Trie.o TrieTest.o
-	$(CC) $(CFLAGS) -o TrieTest Trie.o TrieTest.o -I$(TRIELIB) -L$(TRIELIB)
+# Create the executable file
+TrieTests: Trie.o TrieTests.cpp
+	$(CC) $(CFLAGS) -o TrieTests TrieTests.cpp Trie.o -I$(GOOGLETEST)/include -L$(GOOGLETEST)/lib -lgtest -lgtest_main -lpthread
 
-Trie.o: Trie.cpp Trie.h
-	$(CC) $(CFLAGS) -c Trie.cpp
+# Generate the Trie.o file
+Trie.o: Trie.h Trie.cpp
+	$(CC) $(CFLAGS) -I$(GOOGLETEST)/include -L$(GOOGLETEST)/lib -c Trie.cpp
 
-TrieTest.o: TrieTest.cpp
-	$(CC) $(CFLAGS) -c TrieTest.cpp
-
-
-
-#clean and test
 clean:
-	rm TrieTest *.o
+	rm -f TrieTests *.o
 
 test:
-	./TrieTest "testAdd.txt" "testIsAWord.txt"
-
-debug:
-	gdb ./TrieTest "testAdd.txt" "testIsAWord.txt"
+	./TrieTests
